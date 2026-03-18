@@ -1,0 +1,47 @@
+/* Light theme (default) */
+:root {
+  --bg: #f0f4f8;
+  --card-bg: #ffffff;
+  --forecast-day-bg: #f8fafc;
+  --text: #1a202c;
+  --text-muted: #718096;
+  --border: #e2e8f0;
+  --accent: #3b82f6;
+  --accent-hover: #2563eb;
+  --input-bg: #ffffff;
+  --shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+}
+
+/* Dark theme */
+[data-theme='dark'] {
+  --bg: #0f172a;
+  --card-bg: #1e293b;
+  --forecast-day-bg: #253048;
+  --text: #f1f5f9;
+  --text-muted: #94a3b8;
+  --border: #334155;
+  --accent: #60a5fa;
+  --accent-hover: #93c5fd;
+  --input-bg: #1e293b;
+  --shadow: 0 4px 24px rgba(0, 0, 0, 0.35);
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  transition: background 0.3s, color 0.3s;
+  -webkit-font-smoothing: antialiased;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: translateY(0); }
+}

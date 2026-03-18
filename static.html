@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Weather Dashboard – Static Version</title>
+    <style>
+      /* ── Reset ── */
+      *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+      body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background: #f0f4f8;
+        color: #1a202c;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
+
+      /* ── Header ── */
+      header {
+        background: #fff;
+        border-bottom: 1px solid #e2e8f0;
+        box-shadow: 0 2px 8px rgba(0,0,0,.06);
+        padding: 0.9rem 1.5rem;
+      }
+      .header-inner {
+        max-width: 900px;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+      .logo { font-size: 1.75rem; }
+      header h1 { font-size: 1.3rem; font-weight: 700; }
+
+      /* ── Main ── */
+      main {
+        flex: 1;
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 2rem 1.5rem;
+        width: 100%;
+      }
+
+      /* ── Note banner ── */
+      .static-note {
+        background: #fffbeb;
+        border: 1px solid #fcd34d;
+        color: #92400e;
+        border-radius: 0.75rem;
+        padding: 0.9rem 1.25rem;
+        font-size: 0.9rem;
+        margin-bottom: 1.75rem;
+      }
+
+      /* ── Weather Card ── */
+      .weather-card {
+        background: #fff;
+        border-radius: 1rem;
+        padding: 2rem;
+        box-shadow: 0 4px 24px rgba(0,0,0,.08);
+        margin-bottom: 1.5rem;
+      }
+      .weather-card h2 { font-size: 1.8rem; font-weight: 700; margin-bottom: 0.2rem; }
+      .weather-card .date { color: #718096; font-size: 0.9rem; margin-bottom: 1.5rem; }
+      .weather-main {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+      }
+      .weather-icon {
+        width: 100px;
+        height: 100px;
+        background: #e0f2fe;
+        border-radius: 50%;
+        display: flex; align-items: center; justify-content: center;
+        font-size: 3.5rem;
+      }
+      .temp-block { display: flex; flex-direction: column; }
+      .temp { font-size: 3.5rem; font-weight: 700; line-height: 1; }
+      .condition { font-size: 1.2rem; font-weight: 600; color: #3b82f6; margin-top: 0.3rem; }
+      .description { font-size: 0.9rem; color: #718096; }
+
+      .details {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1rem;
+        border-top: 1px solid #e2e8f0;
+        padding-top: 1.5rem;
+      }
+      .detail-item { display: flex; flex-direction: column; align-items: center; text-align: center; }
+      .detail-item .label {
+        font-size: 0.72rem; color: #718096;
+        text-transform: uppercase; letter-spacing: .06em; margin-bottom: 0.25rem;
+      }
+      .detail-item .value { font-size: 1rem; font-weight: 600; }
+
+      /* ── Forecast ── */
+      .forecast {
+        background: #fff;
+        border-radius: 1rem;
+        padding: 1.5rem 2rem;
+        box-shadow: 0 4px 24px rgba(0,0,0,.08);
+      }
+      .forecast h3 {
+        font-size: 0.8rem; font-weight: 700; color: #718096;
+        text-transform: uppercase; letter-spacing: .08em; margin-bottom: 1rem;
+      }
+      .forecast-grid {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 0.5rem;
+      }
+      .forecast-day {
+        display: flex; flex-direction: column; align-items: center;
+        padding: 0.75rem 0.5rem;
+        border-radius: 0.75rem;
+        background: #f8fafc;
+        text-align: center;
+      }
+      .forecast-day .day-name { font-size: 0.85rem; font-weight: 700; }
+      .forecast-day .day-date { font-size: 0.72rem; color: #718096; margin-bottom: 0.25rem; }
+      .forecast-day .f-icon { font-size: 2rem; }
+      .forecast-day .f-cond { font-size: 0.72rem; color: #3b82f6; font-weight: 600; margin-bottom: 0.25rem; }
+      .forecast-day .temps { display: flex; gap: 0.4rem; font-size: 0.85rem; }
+      .forecast-day .t-max { font-weight: 700; }
+      .forecast-day .t-min { color: #718096; }
+
+      /* ── Footer ── */
+      footer {
+        text-align: center;
+        padding: 1.25rem;
+        color: #718096;
+        font-size: 0.85rem;
+        border-top: 1px solid #e2e8f0;
+      }
+      footer a { color: #3b82f6; text-decoration: none; }
+      footer a:hover { text-decoration: underline; }
+
+      /* ── Responsive: Tablet (≤768px) ── */
+      @media (max-width: 768px) {
+        main { padding: 1.5rem 1rem; }
+        .weather-card { padding: 1.5rem; }
+        .forecast { padding: 1.25rem; }
+        .forecast-grid { grid-template-columns: repeat(3, 1fr); }
+      }
+
+      /* ── Responsive: Mobile (≤480px) ── */
+      @media (max-width: 480px) {
+        main { padding: 1rem 0.75rem; }
+
+        .weather-card h2 { font-size: 1.4rem; }
+        .temp { font-size: 2.5rem; }
+        .weather-icon { width: 72px; height: 72px; font-size: 2.5rem; }
+        .details { grid-template-columns: repeat(2, 1fr); }
+
+        .forecast-grid { grid-template-columns: repeat(2, 1fr); }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="header-inner">
+        <span class="logo">⛅</span>
+        <h1>Weather Dashboard</h1>
+      </div>
+    </header>
+
+    <main>
+      <div class="static-note">
+        📌 <strong>Static Version</strong> — Data is hardcoded and does not update in real time. No JavaScript or API is used.
+      </div>
+
+      <!-- Current Weather Card -->
+      <div class="weather-card">
+        <h2>Manila, PH</h2>
+        <p class="date">Monday, March 17, 2026</p>
+
+        <div class="weather-main">
+          <div class="weather-icon">🌤</div>
+          <div class="temp-block">
+            <span class="temp">31°C</span>
+            <span class="condition">Partly Cloudy</span>
+            <span class="description">partly cloudy skies</span>
+          </div>
+        </div>
+
+        <div class="details">
+          <div class="detail-item">
+            <span class="label">Feels Like</span>
+            <span class="value">36°C</span>
+          </div>
+          <div class="detail-item">
+            <span class="label">Humidity</span>
+            <span class="value">78%</span>
+          </div>
+          <div class="detail-item">
+            <span class="label">Wind</span>
+            <span class="value">5 m/s</span>
+          </div>
+          <div class="detail-item">
+            <span class="label">Visibility</span>
+            <span class="value">10.0 km</span>
+          </div>
+          <div class="detail-item">
+            <span class="label">Min</span>
+            <span class="value">26°C</span>
+          </div>
+          <div class="detail-item">
+            <span class="label">Max</span>
+            <span class="value">33°C</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 5-Day Forecast -->
+      <div class="forecast">
+        <h3>5-Day Forecast</h3>
+        <div class="forecast-grid">
+          <div class="forecast-day">
+            <span class="day-name">Tue</span>
+            <span class="day-date">Mar 18</span>
+            <span class="f-icon">🌧</span>
+            <span class="f-cond">Rain</span>
+            <div class="temps">
+              <span class="t-max">29°</span>
+              <span class="t-min">24°</span>
+            </div>
+          </div>
+          <div class="forecast-day">
+            <span class="day-name">Wed</span>
+            <span class="day-date">Mar 19</span>
+            <span class="f-icon">⛈</span>
+            <span class="f-cond">Thunderstorm</span>
+            <div class="temps">
+              <span class="t-max">27°</span>
+              <span class="t-min">23°</span>
+            </div>
+          </div>
+          <div class="forecast-day">
+            <span class="day-name">Thu</span>
+            <span class="day-date">Mar 20</span>
+            <span class="f-icon">🌦</span>
+            <span class="f-cond">Drizzle</span>
+            <div class="temps">
+              <span class="t-max">28°</span>
+              <span class="t-min">23°</span>
+            </div>
+          </div>
+          <div class="forecast-day">
+            <span class="day-name">Fri</span>
+            <span class="day-date">Mar 21</span>
+            <span class="f-icon">🌤</span>
+            <span class="f-cond">Partly Cloudy</span>
+            <div class="temps">
+              <span class="t-max">32°</span>
+              <span class="t-min">26°</span>
+            </div>
+          </div>
+          <div class="forecast-day">
+            <span class="day-name">Sat</span>
+            <span class="day-date">Mar 22</span>
+            <span class="f-icon">☀️</span>
+            <span class="f-cond">Clear</span>
+            <div class="temps">
+              <span class="t-max">34°</span>
+              <span class="t-min">27°</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer>
+      <p>
+        Static version — for the dynamic version see the React app.<br />
+        Data would be provided by <a href="https://openweathermap.org" target="_blank" rel="noopener noreferrer">OpenWeatherMap</a>.
+      </p>
+    </footer>
+  </body>
+</html>

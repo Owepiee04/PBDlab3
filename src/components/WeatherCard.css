@@ -1,0 +1,119 @@
+.weather-card {
+  background: var(--card-bg);
+  border-radius: 1rem;
+  padding: 2rem;
+  box-shadow: var(--shadow);
+  animation: fadeIn 0.4s ease;
+}
+
+.weather-card__location h2 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--text);
+  margin: 0 0 0.2rem;
+}
+
+.weather-card__date {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  margin: 0 0 1.5rem;
+}
+
+.weather-card__main {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.weather-card__icon {
+  width: 100px;
+  height: 100px;
+  flex-shrink: 0;
+}
+
+.weather-card__temp {
+  display: flex;
+  flex-direction: column;
+}
+
+.weather-card__temp-value {
+  font-size: 3.5rem;
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1;
+}
+
+.weather-card__condition {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--accent);
+  text-transform: capitalize;
+  margin-top: 0.3rem;
+}
+
+.weather-card__description {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  text-transform: capitalize;
+}
+
+.weather-card__details {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  border-top: 1px solid var(--border);
+  padding-top: 1.5rem;
+}
+
+.weather-card__detail-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.weather-card__detail-item .label {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 0.25rem;
+}
+
+.weather-card__detail-item .value {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+/* Tablet */
+@media (max-width: 768px) {
+  .weather-card {
+    padding: 1.5rem;
+  }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+  .weather-card {
+    padding: 1.25rem;
+  }
+
+  .weather-card__location h2 {
+    font-size: 1.4rem;
+  }
+
+  .weather-card__temp-value {
+    font-size: 2.5rem;
+  }
+
+  .weather-card__icon {
+    width: 72px;
+    height: 72px;
+  }
+
+  .weather-card__details {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

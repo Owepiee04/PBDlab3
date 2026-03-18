@@ -1,0 +1,95 @@
+.forecast {
+  background: var(--card-bg);
+  border-radius: 1rem;
+  padding: 1.5rem 2rem;
+  box-shadow: var(--shadow);
+  animation: fadeIn 0.4s ease 0.1s both;
+}
+
+.forecast__title {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin: 0 0 1rem;
+}
+
+.forecast__grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 0.5rem;
+}
+
+.forecast__day {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0.75rem 0.5rem;
+  border-radius: 0.75rem;
+  background: var(--forecast-day-bg);
+  text-align: center;
+  transition: transform 0.2s;
+}
+
+.forecast__day:hover {
+  transform: translateY(-3px);
+}
+
+.forecast__day-name {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.forecast__day-date {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  margin-bottom: 0.25rem;
+}
+
+.forecast__icon {
+  width: 48px;
+  height: 48px;
+}
+
+.forecast__condition {
+  font-size: 0.72rem;
+  color: var(--accent);
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+  text-align: center;
+}
+
+.forecast__temps {
+  display: flex;
+  gap: 0.4rem;
+  font-size: 0.85rem;
+}
+
+.forecast__max {
+  font-weight: 700;
+  color: var(--text);
+}
+
+.forecast__min {
+  color: var(--text-muted);
+}
+
+/* Tablet: adjusted spacing */
+@media (max-width: 768px) {
+  .forecast {
+    padding: 1.25rem;
+  }
+
+  .forecast__grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Mobile: vertical stacking */
+@media (max-width: 480px) {
+  .forecast__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
